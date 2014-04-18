@@ -1,0 +1,18 @@
+Book(Balaclava):
+    id: 1
+    title: The Cause of the Charge of Balaclava
+    author: Thomas Morley
+    publicationDate: 2014-04-02
+
+Chapter(chapter1):
+    id: 1
+    book: Balaclava
+
+Paragraph(paragraph1):
+    id: 1
+    chapter: chapter1
+
+Sentence(sentence1):
+    id: 1
+    paragraph: sentence1
+    content: There is a natural instinct to dodge cannon balls.
