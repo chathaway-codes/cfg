@@ -1,4 +1,5 @@
 package models;
+
 import javax.persistence.*;
 
 import play.db.ebean.*;
@@ -14,11 +15,10 @@ public class Chapter extends Model {
 	@Id
 	@Constraints.Min(10)
 	public Long id;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	public Book book;
-	
-	public static Finder<Long,Chapter> find = new Finder<Long,Chapter>(
-		Long.class, Chapter.class
-	);
+
+	public static Finder<Long, Chapter> find = new Finder<Long, Chapter>(
+			Long.class, Chapter.class);
 }

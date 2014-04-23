@@ -20,33 +20,32 @@ public class Sentence extends Model {
 	@Id
 	@Constraints.Min(10)
 	public Long id;
-	
+
 	@NotNull
 	public String content;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	public Paragraph paragraph;
-	
+
 	public List<Sentence> getContext() {
 		return new ArrayList<Sentence>(this.paragraph.sentences);
 	}
-	
+
 	public String toString() {
 		return this.content;
 	}
-	
-	public static Finder<Long,Sentence> find = new Finder<Long,Sentence>(
-		Long.class, Sentence.class
-	);
-	
+
+	public static Finder<Long, Sentence> find = new Finder<Long, Sentence>(
+			Long.class, Sentence.class);
+
 	private static Random random = new Random();
-	
+
 	public static Sentence getRandomSentence() {
-		Long id = Math.abs(random.nextLong())%(Sentence.find.findRowCount())+1;
-		System.out.println(id);
+		Long id = Math.abs(random.nextLong()) % (Sentence.find.findRowCount())
+				+ 1;
 		return Sentence.find.byId(id);
 	}
-	
+
 	public static List<Sentence> getContext(Sentence s) {
 		return s.getContext();
 	}

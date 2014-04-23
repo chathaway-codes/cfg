@@ -17,13 +17,12 @@ public class Paragraph extends Model {
 	@Id
 	@Constraints.Min(10)
 	public Long id;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	public Chapter chapter;
-	@OneToMany(mappedBy = "paragraph", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "paragraph", cascade = CascadeType.ALL)
 	public Set<Sentence> sentences;
-	
-	public static Finder<Long,Paragraph> find = new Finder<Long,Paragraph>(
-		Long.class, Paragraph.class
-	);
+
+	public static Finder<Long, Paragraph> find = new Finder<Long, Paragraph>(
+			Long.class, Paragraph.class);
 }

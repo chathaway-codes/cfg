@@ -8,20 +8,21 @@ import play.libs.Yaml;
 import com.avaje.ebean.Ebean;
 
 public class InitialData {
-    
-    public static void BasicData1() {
-        @SuppressWarnings("unchecked")
-        Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
 
-        // Insert books first
-        Ebean.save(all.get("books"));
-        
-        Ebean.save(all.get("chapters"));
+	public static void BasicData1() {
+		@SuppressWarnings("unchecked")
+		Map<String, List<Object>> all = (Map<String, List<Object>>) Yaml
+				.load("initial-data.yml");
 
-        // Insert paragraphs
-        Ebean.save(all.get("paragraphs"));
+		// Insert books first
+		Ebean.save(all.get("books"));
 
-        // Insert sentences
-        Ebean.save(all.get("sentences"));       
-    }
+		Ebean.save(all.get("chapters"));
+
+		// Insert paragraphs
+		Ebean.save(all.get("paragraphs"));
+
+		// Insert sentences
+		Ebean.save(all.get("sentences"));
+	}
 }
