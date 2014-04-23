@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.persistence.*;
@@ -25,12 +27,27 @@ public class Sentence extends Model {
 	@ManyToOne(cascade=CascadeType.ALL)
 	public Paragraph paragraph;
 	
+	public List<Sentence> getContext() {
+		return new ArrayList<Sentence>(this.paragraph.sentences);
+	}
+	
+	public String toString() {
+		return this.content;
+	}
+	
 	public static Finder<Long,Sentence> find = new Finder<Long,Sentence>(
 		Long.class, Sentence.class
 	);
 	
+	private static Random random = new Random();
+	
 	public static Sentence getRandomSentence() {
-		Random random = new Random();
-		return Sentence.find.byId(random.nextLong()%(Sentence.find.findRowCount()));
+		Long id = Math.abs(random.nextLong())%(Sentence.find.findRowCount())+1;
+		System.out.println(id);
+		return Sentence.find.byId(id);
+	}
+	
+	public static List<Sentence> getContext(Sentence s) {
+		return s.getContext();
 	}
 }

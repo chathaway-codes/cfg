@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 import play.db.ebean.*;
@@ -18,6 +20,8 @@ public class Paragraph extends Model {
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	public Chapter chapter;
+	@OneToMany(mappedBy = "paragraph", cascade=CascadeType.ALL)
+	public Set<Sentence> sentences;
 	
 	public static Finder<Long,Paragraph> find = new Finder<Long,Paragraph>(
 		Long.class, Paragraph.class
