@@ -3,6 +3,11 @@
 
 # --- !Ups
 
+create table authorized_user (
+  id                        bigint not null,
+  constraint pk_authorized_user primary key (id))
+;
+
 create table book (
   id                        bigint not null,
   title                     varchar(255) not null,
@@ -30,6 +35,8 @@ create table sentence (
   constraint pk_sentence primary key (id))
 ;
 
+create sequence authorized_user_seq;
+
 create sequence book_seq;
 
 create sequence chapter_seq;
@@ -51,6 +58,8 @@ create index ix_sentence_paragraph_3 on sentence (paragraph_id);
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists authorized_user;
+
 drop table if exists book;
 
 drop table if exists chapter;
@@ -60,6 +69,8 @@ drop table if exists paragraph;
 drop table if exists sentence;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists authorized_user_seq;
 
 drop sequence if exists book_seq;
 
