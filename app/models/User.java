@@ -5,11 +5,8 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Option;
-
 import org.mindrot.jbcrypt.BCrypt;
 
-import scala.None;
 import scala.Some;
 import securesocial.core.Identity;
 
