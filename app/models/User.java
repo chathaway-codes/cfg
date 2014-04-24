@@ -1,9 +1,15 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import play.db.ebean.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -19,7 +25,7 @@ public class User extends Model {
 	private static final long serialVersionUID = 1L;
 	
     @Id
-    public String id;
+    public Long id;
     
 	public String email;
 	
@@ -37,11 +43,25 @@ public class User extends Model {
 	
 	public String password_salt;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	public Wallet wallet;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	public List<Guess> guesses;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	public List<Score> scores;
+	
+	@OneToMany
+	public List<Purchase> purchases;
+	
 	public User(String email, String username, String provider, String password) {
 		this.email = email;
 		this.username = username;
 		this.provider = provider;
 		this.password_hash = hashPassword(this, password);
+		
+		_User();
 	}
 	
 	public User(Identity i) {
@@ -58,6 +78,15 @@ public class User extends Model {
 			if(i.passwordInfo().get().salt() instanceof Some)
 				this.password_salt = i.passwordInfo().get().salt().get();
 		}
+		
+		_User();
+	}
+	
+	private void _User() {
+		this.wallet = new Wallet();
+		this.guesses = new ArrayList<Guess>();
+		this.scores = new ArrayList<Score>();
+		this.purchases = new ArrayList<Purchase>();
 	}
 	
 	public static User findByIdentity(Identity i) {

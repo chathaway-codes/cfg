@@ -17,6 +17,20 @@ create table chapter (
   constraint pk_chapter primary key (id))
 ;
 
+create table context (
+  id                        bigint not null,
+  guess_id                  bigint,
+  constraint pk_context primary key (id))
+;
+
+create table guess (
+  id                        bigint not null,
+  context_id                bigint,
+  user_id                   bigint,
+  guess                     varchar(240),
+  constraint pk_guess primary key (id))
+;
+
 create table local_token (
   uuid                      varchar(255) not null,
   email                     varchar(255),
@@ -32,6 +46,33 @@ create table paragraph (
   constraint pk_paragraph primary key (id))
 ;
 
+create table purchase (
+  id                        bigint not null,
+  user_id                   bigint,
+  amount                    double,
+  when                      timestamp,
+  constraint pk_purchase primary key (id))
+;
+
+create table review (
+  id                        bigint not null,
+  guess_id                  bigint,
+  reviewer_id               bigint,
+  score_id                  bigint,
+  constraint pk_review primary key (id))
+;
+
+create table score (
+  id                        bigint not null,
+  user_id                   bigint,
+  review_id                 bigint,
+  guess_id                  bigint,
+  grammar_score             double,
+  fun_score                 double,
+  accuracy_score            double,
+  constraint pk_score primary key (id))
+;
+
 create table sentence (
   id                        bigint not null,
   content                   varchar(255) not null,
@@ -40,7 +81,7 @@ create table sentence (
 ;
 
 create table user (
-  id                        varchar(255) not null,
+  id                        bigint not null,
   email                     varchar(255),
   username                  varchar(255),
   first_name                varchar(255),
@@ -49,29 +90,84 @@ create table user (
   provider                  varchar(255),
   password_hash             varchar(255),
   password_salt             varchar(255),
+  wallet_id                 bigint,
   constraint pk_user primary key (id))
 ;
 
+create table wallet (
+  id                        bigint not null,
+  score                     double,
+  monies                    double,
+  user_id                   bigint,
+  constraint pk_wallet primary key (id))
+;
+
+
+create table context_sentence (
+  context_id                     bigint not null,
+  sentence_id                    bigint not null,
+  constraint pk_context_sentence primary key (context_id, sentence_id))
+;
 create sequence book_seq;
 
 create sequence chapter_seq;
+
+create sequence context_seq;
+
+create sequence guess_seq;
 
 create sequence local_token_seq;
 
 create sequence paragraph_seq;
 
+create sequence purchase_seq;
+
+create sequence review_seq;
+
+create sequence score_seq;
+
 create sequence sentence_seq;
 
 create sequence user_seq;
 
+create sequence wallet_seq;
+
 alter table chapter add constraint fk_chapter_book_1 foreign key (book_id) references book (id) on delete restrict on update restrict;
 create index ix_chapter_book_1 on chapter (book_id);
-alter table paragraph add constraint fk_paragraph_chapter_2 foreign key (chapter_id) references chapter (id) on delete restrict on update restrict;
-create index ix_paragraph_chapter_2 on paragraph (chapter_id);
-alter table sentence add constraint fk_sentence_paragraph_3 foreign key (paragraph_id) references paragraph (id) on delete restrict on update restrict;
-create index ix_sentence_paragraph_3 on sentence (paragraph_id);
+alter table context add constraint fk_context_guess_2 foreign key (guess_id) references guess (id) on delete restrict on update restrict;
+create index ix_context_guess_2 on context (guess_id);
+alter table guess add constraint fk_guess_context_3 foreign key (context_id) references context (id) on delete restrict on update restrict;
+create index ix_guess_context_3 on guess (context_id);
+alter table guess add constraint fk_guess_user_4 foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_guess_user_4 on guess (user_id);
+alter table paragraph add constraint fk_paragraph_chapter_5 foreign key (chapter_id) references chapter (id) on delete restrict on update restrict;
+create index ix_paragraph_chapter_5 on paragraph (chapter_id);
+alter table purchase add constraint fk_purchase_user_6 foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_purchase_user_6 on purchase (user_id);
+alter table review add constraint fk_review_guess_7 foreign key (guess_id) references guess (id) on delete restrict on update restrict;
+create index ix_review_guess_7 on review (guess_id);
+alter table review add constraint fk_review_reviewer_8 foreign key (reviewer_id) references user (id) on delete restrict on update restrict;
+create index ix_review_reviewer_8 on review (reviewer_id);
+alter table review add constraint fk_review_score_9 foreign key (score_id) references score (id) on delete restrict on update restrict;
+create index ix_review_score_9 on review (score_id);
+alter table score add constraint fk_score_user_10 foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_score_user_10 on score (user_id);
+alter table score add constraint fk_score_review_11 foreign key (review_id) references review (id) on delete restrict on update restrict;
+create index ix_score_review_11 on score (review_id);
+alter table score add constraint fk_score_guess_12 foreign key (guess_id) references guess (id) on delete restrict on update restrict;
+create index ix_score_guess_12 on score (guess_id);
+alter table sentence add constraint fk_sentence_paragraph_13 foreign key (paragraph_id) references paragraph (id) on delete restrict on update restrict;
+create index ix_sentence_paragraph_13 on sentence (paragraph_id);
+alter table user add constraint fk_user_wallet_14 foreign key (wallet_id) references wallet (id) on delete restrict on update restrict;
+create index ix_user_wallet_14 on user (wallet_id);
+alter table wallet add constraint fk_wallet_user_15 foreign key (user_id) references user (id) on delete restrict on update restrict;
+create index ix_wallet_user_15 on wallet (user_id);
 
 
+
+alter table context_sentence add constraint fk_context_sentence_context_01 foreign key (context_id) references context (id) on delete restrict on update restrict;
+
+alter table context_sentence add constraint fk_context_sentence_sentence_02 foreign key (sentence_id) references sentence (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -81,13 +177,27 @@ drop table if exists book;
 
 drop table if exists chapter;
 
+drop table if exists context;
+
+drop table if exists context_sentence;
+
+drop table if exists guess;
+
 drop table if exists local_token;
 
 drop table if exists paragraph;
 
+drop table if exists purchase;
+
+drop table if exists review;
+
+drop table if exists score;
+
 drop table if exists sentence;
 
 drop table if exists user;
+
+drop table if exists wallet;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
@@ -95,11 +205,23 @@ drop sequence if exists book_seq;
 
 drop sequence if exists chapter_seq;
 
+drop sequence if exists context_seq;
+
+drop sequence if exists guess_seq;
+
 drop sequence if exists local_token_seq;
 
 drop sequence if exists paragraph_seq;
 
+drop sequence if exists purchase_seq;
+
+drop sequence if exists review_seq;
+
+drop sequence if exists score_seq;
+
 drop sequence if exists sentence_seq;
 
 drop sequence if exists user_seq;
+
+drop sequence if exists wallet_seq;
 

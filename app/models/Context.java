@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -14,8 +15,12 @@ import securesocial.core.Identity;
 
 @Entity
 public class Context extends Model {
+    @Id
+    public Long id;
+
 	@ManyToMany
-	List<Sentence> sentences;
+	public List<Sentence> sentences;
 	
-	Guess guess;
+	@OneToOne
+	public Guess guess;
 }
