@@ -26,36 +26,37 @@ public class GuessTests extends WithApplication {
 		assertNotNull(review.score.grammarScore);
 		assertEquals(new Double(7.0), review.score.grammarScore);
 	}
-	
+
 	@Test
 	public void testCanGetUserGuesses() {
 		User user = User.find.byId(1L);
-		
+
 		assertNotNull(user.guesses);
 		assertNotNull(user.guesses.get(0));
 	}
-	
+
 	@Test
 	public void testCanMakeGuess() {
 		int originalCount = Guess.find.findRowCount();
 		User user = User.find.byId(1L);
-		
+
 		user.guesses.add(new Guess());
 		user.save();
-		
-		assertEquals(Guess.find.findRowCount(), originalCount+1);
+
+		assertEquals(Guess.find.findRowCount(), originalCount + 1);
 	}
-	
+
 	@Test
 	public void testCanMakeReview() {
 		int originalCount = Review.find.findRowCount();
 		User user = User.find.byId(2L);
-		
+
 		Guess guess = Guess.find.byId(1L);
-		
-		Review review = new Review(user, guess, new Score(user, null, guess, 10.0, 10.0, 10.0));
+
+		Review review = new Review(user, guess, new Score(user, null, guess,
+				10.0, 10.0, 10.0));
 		review.save();
-		
-		assertEquals(Review.find.findRowCount(), originalCount+1);
+
+		assertEquals(Review.find.findRowCount(), originalCount + 1);
 	}
 }

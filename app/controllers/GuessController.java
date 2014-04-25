@@ -20,35 +20,36 @@ public class GuessController extends Controller {
 	public static Result list() {
 		List<Guess> guesses = Guess.find.findList();
 		JsonNode result = Json.toJson(guesses);
-		
+
 		return ok(result);
 	}
-	
+
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result get(Long id) {
 		Guess guess = Guess.find.byId(id);
-		
-		if(guess == null) {
+
+		if (guess == null) {
 			return notFound();
 		}
-		
+
 		JsonNode result = Json.toJson(guess);
-		
+
 		return ok(result);
 	}
-	
+
 	@SecureSocial.SecuredAction
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result post() {
 		JsonNode json = request().body().asJson();
 		Guess guess = Json.fromJson(json, Guess.class);
-		
+
 		// The owner should be logged in user
-		User user = User.findByIdentity((Identity)ctx().args.get(SecureSocial.USER_KEY));
+		User user = User.findByIdentity((Identity) ctx().args
+				.get(SecureSocial.USER_KEY));
 		guess.user = user;
-		
+
 		guess.save();
-		
+
 		return ok(Json.toJson(guess));
 	}
 
@@ -58,21 +59,22 @@ public class GuessController extends Controller {
 		JsonNode json = request().body().asJson();
 		Guess guess = Json.fromJson(json, Guess.class);
 		guess.id = id;
-		
+
 		// We should only update instance where the previous owner was this user
 		Guess original = Guess.find.byId(id);
-		
-		if(original == null) {
+
+		if (original == null) {
 			return notFound();
 		}
-		
-		User user = User.findByIdentity((Identity)ctx().args.get(SecureSocial.USER_KEY));
-		if(!original.user.equals(user)) {
+
+		User user = User.findByIdentity((Identity) ctx().args
+				.get(SecureSocial.USER_KEY));
+		if (!original.user.equals(user)) {
 			return forbidden();
 		}
-		
+
 		guess.update();
-		
+
 		return ok(Json.toJson(guess));
 	}
 
@@ -80,19 +82,20 @@ public class GuessController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result delete(Long id) {
 		Guess guess = Guess.find.byId(id);
-		
-		if(guess == null) {
+
+		if (guess == null) {
 			return notFound();
 		}
-		
+
 		// We should only update instance where the previous owner was this user
-		User user = User.findByIdentity((Identity)ctx().args.get(SecureSocial.USER_KEY));
-		if(!guess.user.equals(user)) {
+		User user = User.findByIdentity((Identity) ctx().args
+				.get(SecureSocial.USER_KEY));
+		if (!guess.user.equals(user)) {
 			return forbidden();
 		}
-		
+
 		guess.delete();
-		
+
 		return ok();
 	}
 }

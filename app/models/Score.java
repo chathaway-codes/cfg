@@ -34,12 +34,13 @@ public class Score extends Model {
 	public Double funScore;
 	@Required
 	public Double accuracyScore;
-	
+
 	public Score() {
-		
+
 	}
-	
-	public Score(User user, Review review, Guess guess, Double grammarScore, Double funScore, Double accuracyScore) {
+
+	public Score(User user, Review review, Guess guess, Double grammarScore,
+			Double funScore, Double accuracyScore) {
 		this.user = user;
 		this.review = review;
 		this.guess = guess;

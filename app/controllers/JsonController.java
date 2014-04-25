@@ -7,7 +7,7 @@ public class JsonController extends Controller {
 	public static Result post() {
 		return null;
 	}
-	
+
 	public static Result get() {
 		return null;
 	}

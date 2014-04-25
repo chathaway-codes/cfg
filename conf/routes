@@ -30,8 +30,18 @@ GET     /not-authorized             securesocial.controllers.ProviderController.
 GET     /guesses                    controllers.GuessController.list
 GET     /guesses/:id                controllers.GuessController.get(id: Long)
 POST    /guesses                    controllers.GuessController.post
-PUT     /guesses/:id                controllers.GuessController.put(id: Long)
+# Not needed, users won't be updating guesses
+#PUT     /guesses/:id                controllers.GuessController.put(id: Long)
 DELETE  /guesses/:id                controllers.GuessController.delete(id: Long)
+
+GET		/reviews					controllers.ReviewController.list
+GET		/reviews/:id				controllers.ReviewController.get(id: Long)
+POST	/reviews					controllers.ReviewController.post
+PUT		/reviews/:id				controllers.ReviewController.put(id: Long)
+
+GET		/context					controllers.ContextController.list
+POST	/context					controllers.ContextController.post
+PUT		/context/:id				controllers.ContextController.put(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

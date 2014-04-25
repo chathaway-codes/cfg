@@ -24,11 +24,11 @@ public class Review extends Model {
 	public User reviewer;
 	@OneToOne
 	public Score score;
-	
+
 	public Review() {
 		this(new User(), new Guess(), new Score());
 	}
-	
+
 	public Review(User reviewer, Guess guess, Score score) {
 		this.guess = guess;
 		this.reviewer = reviewer;

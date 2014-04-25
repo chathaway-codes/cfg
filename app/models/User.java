@@ -54,7 +54,7 @@ public class User extends Model {
 
 	@OneToMany
 	public List<Purchase> purchases;
-	
+
 	public User() {
 		this.email = "user@example.com";
 		this.username = "user";
