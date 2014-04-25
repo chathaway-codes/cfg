@@ -41,6 +41,8 @@ public class Sentence extends Model {
 	private static Random random = new Random();
 
 	public static Sentence getRandomSentence() {
+		if (Sentence.find.findRowCount() == 0)
+			return null;
 		Long id = Math.abs(random.nextLong()) % (Sentence.find.findRowCount())
 				+ 1;
 		return Sentence.find.byId(id);

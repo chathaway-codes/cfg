@@ -3,9 +3,11 @@ package models;
 import java.util.List;
 
 import org.junit.*;
+
+import com.avaje.ebean.Ebean;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
-
 import play.test.*;
 import static play.test.Helpers.*;
 
@@ -39,5 +41,13 @@ public class SentenceTests extends WithApplication {
 
 		// And we shouldn't have ALL the sentences
 		assertThat(sentences.size(), is(not(Sentence.find.findRowCount())));
+	}
+	@Test
+	public void testDoesNotThrowDivisionByZero(){
+		Ebean.delete(Sentence.find.findList());
+		Ebean.commitTransaction();
+		int a = Sentence.find.findRowCount();
+		assertEquals(a,0);
+		Sentence.getRandomSentence();
 	}
 }
