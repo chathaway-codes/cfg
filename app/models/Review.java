@@ -17,14 +17,29 @@ public class Review extends Model {
 	private static final long serialVersionUID = 1L;
 	@Id
 	public Long id;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	Guess guess;
+	public Guess guess;
 	@ManyToOne(cascade = CascadeType.ALL)
-	User reviewer;
+	public User reviewer;
 	@OneToOne
-	Score score;
+	public Score score;
 	
-	public static final Finder<Long, Review> find 
-		= new Finder<Long, Review>(Long.class, Review.class);
+	public Review() {
+		this(new Guess(), new User(), new Score());
+	}
+	
+	public Review(Guess guess, User reviewer, Score score) {
+		this.guess = guess;
+		this.reviewer = reviewer;
+		this.score = score;
+	}
+
+	public String toString() {
+		return "reviewer: " + reviewer.toString() + " guess: "
+				+ guess.toString() + " score: " + score.toString();
+	}
+
+	public static final Finder<Long, Review> find = new Finder<Long, Review>(
+			Long.class, Review.class);
 }

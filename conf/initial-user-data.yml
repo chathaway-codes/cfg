@@ -1,0 +1,76 @@
+- &balaclava !!models.Book
+    title: The Cause of the Charge of Balaclava
+    author: Thomas Morley
+    publicationDate: 2014-04-02
+
+- &chapter1 !!models.Chapter
+    book: *balaclava
+
+- &paragraph1 !!models.Paragraph
+    chapter: *chapter1
+- &paragraph2 !!models.Paragraph
+    chapter: *chapter1
+
+- &sentence1 !!models.Sentence
+    paragraph: *paragraph1
+    content: There is a natural instinct to dodge cannon balls.
+- &sentence2 !!models.Sentence
+    paragraph: *paragraph1
+    content: In such fire as we were under it changed to an impulse to hurry.
+- &sentence3 !!models.Sentence
+    paragraph: *paragraph1
+    content: There was no time to look right or left, and the guns in front were what I looked out for.
+- &sentence4 !!models.Sentence
+    paragraph: *paragraph1
+    content: They were visible as streaks of fire about two feet long, and a foot thick in the centre of a gush of thick white smoke, marking about every three hundred yards of the way, as they would reload in 30 or 40 seconds.
+- &sentence5 !!models.Sentence
+    paragraph: *paragraph1
+    content: The last volley went off when we were close on them.
+
+- !!models.Sentence
+    paragraph: *paragraph2
+    content: Before we reached the guns every officer of my squadron, the second, was either killed or wounded, leaving no one to command us.
+
+- &user1 !!models.User
+    email: user@example.com
+    username: User1
+    first_name: User
+    last_name: Test
+    full_name: User Test
+    provider: userpass
+    password_hash: $2a$10$R3rWoq1QBZezBxqDICoR.OgbV52RchudoZ3DdhK7m3/kRIsVlvD6y
+    wallet: &wallet1 !!models.Wallet
+        score: 50
+        monies: 50
+        user: *user1
+    
+- &user2 !!models.User
+    email: user2@example.com
+    username: User2
+    first_name: User2
+    last_name: Test
+    full_name: User2 Test
+    provider: userpass
+    password_hash: $2a$10$R3rWoq1QBZezBxqDICoR.OgbV52RchudoZ3DdhK7m3/kRIsVlvD6y
+    wallet: &wallet2 !!models.Wallet
+        score: 50
+        monies: 50
+        user: *user2
+
+- &guess1 !!models.Guess
+    context: &context1 !!models.Context
+        sentences: [ *sentence1 ]
+        guess: *guess1
+    user: *user1
+    guess: The guy is in a war getting shot at by cannonballs
+
+- &review1 !!models.Review
+    guess: *guess1
+    reviewer: *user2
+    score: &score1 !!models.Score
+        user: *user2
+        review: *review1
+        guess: *guess1
+        grammarScore: 7
+        funScore: 8
+        accuracyScore: 7

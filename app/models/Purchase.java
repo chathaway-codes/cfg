@@ -18,7 +18,7 @@ public class Purchase extends Model {
 
 	@Id
 	public Long id;
-	
+
 	@Required
 	@ManyToOne
 	public User user;
@@ -34,19 +34,20 @@ public class Purchase extends Model {
 
 	@Required
 	public DateTime when;
-	
+
 	public Purchase(User user, Sentence sentence, Guess guess, Double amount) {
 		this(user, sentence, guess, amount, DateTime.now());
 	}
-	
-	public Purchase(User user, Sentence sentence, Guess guess, Double amount, DateTime when) {
+
+	public Purchase(User user, Sentence sentence, Guess guess, Double amount,
+			DateTime when) {
 		this.user = user;
 		this.sentence = sentence;
 		this.guess = guess;
 		this.amount = amount;
 		this.when = when;
 	}
-	
-	public static final Finder<Long, Purchase> find 
-		= new Finder<Long, Purchase>(Long.class, Purchase.class);
+
+	public static final Finder<Long, Purchase> find = new Finder<Long, Purchase>(
+			Long.class, Purchase.class);
 }

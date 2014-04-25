@@ -15,12 +15,12 @@ import securesocial.core.Identity;
 
 @Entity
 public class Context extends Model {
-    @Id
-    public Long id;
+	@Id
+	public Long id;
 
 	@ManyToMany
 	public List<Sentence> sentences;
-	
+
 	@OneToOne
 	public Guess guess;
 }

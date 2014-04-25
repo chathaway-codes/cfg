@@ -25,4 +25,12 @@ public class InitialData {
 		// Insert sentences
 		Ebean.save(all.get("sentences"));
 	}
+
+	public static void UserData() {
+		// And user data
+		@SuppressWarnings("unchecked")
+		List<Object> all = (List<Object>) Yaml.load("initial-user-data.yml");
+
+		Ebean.save(all);
+	}
 }

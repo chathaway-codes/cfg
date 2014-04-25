@@ -17,28 +17,28 @@ public class Score extends Model {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	public Long id;
-	
+
 	@ManyToOne
 	public User user;
 	@OneToOne
 	public Review review;
 	@ManyToOne
 	public Guess guess;
-	
+
 	@Required
 	public Double grammarScore;
 	@Required
 	public Double funScore;
 	@Required
 	public Double accuracyScore;
-	
+
 	public Double averageScore() {
-		return (this.grammarScore+this.funScore+this.accuracyScore)/3;
+		return (this.grammarScore + this.funScore + this.accuracyScore) / 3;
 	}
-	
-	public static final Finder<Long, Score> find 
-		= new Finder<Long, Score>(Long.class, Score.class);
+
+	public static final Finder<Long, Score> find = new Finder<Long, Score>(
+			Long.class, Score.class);
 }
