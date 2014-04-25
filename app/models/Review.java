@@ -26,10 +26,10 @@ public class Review extends Model {
 	public Score score;
 	
 	public Review() {
-		this(new Guess(), new User(), new Score());
+		this(new User(), new Guess(), new Score());
 	}
 	
-	public Review(Guess guess, User reviewer, Score score) {
+	public Review(User reviewer, Guess guess, Score score) {
 		this.guess = guess;
 		this.reviewer = reviewer;
 		this.score = score;

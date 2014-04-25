@@ -4,9 +4,7 @@ import org.junit.*;
 import org.openqa.selenium.android.library.Logger;
 
 import com.avaje.ebean.Ebean;
-
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
 import play.test.*;
@@ -22,10 +20,42 @@ public class GuessTests extends WithApplication {
 	public void testCanGetGuessScore() {
 		Guess guess = Guess.find.byId(1L);
 		Review review = guess.reviews.get(0);
-		
-		Logger.getLogger().warning(review.toString());
 
-		// assertThat(null, is(not(review.score)));
+		assertNotNull(review);
 		assertNotNull(review.score);
+		assertNotNull(review.score.grammarScore);
+		assertEquals(new Double(7.0), review.score.grammarScore);
+	}
+	
+	@Test
+	public void testCanGetUserGuesses() {
+		User user = User.find.byId(1L);
+		
+		assertNotNull(user.guesses);
+		assertNotNull(user.guesses.get(0));
+	}
+	
+	@Test
+	public void testCanMakeGuess() {
+		int originalCount = Guess.find.findRowCount();
+		User user = User.find.byId(1L);
+		
+		user.guesses.add(new Guess());
+		user.save();
+		
+		assertEquals(Guess.find.findRowCount(), originalCount+1);
+	}
+	
+	@Test
+	public void testCanMakeReview() {
+		int originalCount = Review.find.findRowCount();
+		User user = User.find.byId(2L);
+		
+		Guess guess = Guess.find.byId(1L);
+		
+		Review review = new Review(user, guess, new Score(user, null, guess, 10.0, 10.0, 10.0));
+		review.save();
+		
+		assertEquals(Review.find.findRowCount(), originalCount+1);
 	}
 }

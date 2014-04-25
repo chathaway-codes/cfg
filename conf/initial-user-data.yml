@@ -31,6 +31,14 @@
     paragraph: *paragraph2
     content: Before we reached the guns every officer of my squadron, the second, was either killed or wounded, leaving no one to command us.
 
+- &wallet1 !!models.Wallet
+    score: 50.0
+    monies: 50.0
+
+- &wallet2 !!models.Wallet
+    score: 50.0
+    monies: 50.0
+
 - &user1 !!models.User
     email: user@example.com
     username: User1
@@ -39,10 +47,8 @@
     full_name: User Test
     provider: userpass
     password_hash: $2a$10$R3rWoq1QBZezBxqDICoR.OgbV52RchudoZ3DdhK7m3/kRIsVlvD6y
-    wallet: &wallet1 !!models.Wallet
-        score: 50
-        monies: 50
-        user: *user1
+    wallet: *wallet1
+        
     
 - &user2 !!models.User
     email: user2@example.com
@@ -52,25 +58,24 @@
     full_name: User2 Test
     provider: userpass
     password_hash: $2a$10$R3rWoq1QBZezBxqDICoR.OgbV52RchudoZ3DdhK7m3/kRIsVlvD6y
-    wallet: &wallet2 !!models.Wallet
-        score: 50
-        monies: 50
-        user: *user2
+    wallet: *wallet2
+
+- &context1 !!models.Context
+    sentences: [ *sentence1 ]
 
 - &guess1 !!models.Guess
-    context: &context1 !!models.Context
-        sentences: [ *sentence1 ]
-        guess: *guess1
+    context: *context1
     user: *user1
     guess: The guy is in a war getting shot at by cannonballs
 
+- &score1 !!models.Score
+    user: *user2
+    guess: *guess1
+    grammarScore: 7.0
+    funScore: 8.0
+    accuracyScore: 7.0
+            
 - &review1 !!models.Review
     guess: *guess1
     reviewer: *user2
-    score: &score1 !!models.Score
-        user: *user2
-        review: *review1
-        guess: *guess1
-        grammarScore: 7
-        funScore: 8
-        accuracyScore: 7
+    score: *score1
