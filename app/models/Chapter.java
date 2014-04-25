@@ -16,7 +16,7 @@ public class Chapter extends Model {
 	@Constraints.Min(10)
 	public Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	public Book book;
 
 	public static Finder<Long, Chapter> find = new Finder<Long, Chapter>(

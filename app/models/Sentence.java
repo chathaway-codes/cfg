@@ -24,7 +24,7 @@ public class Sentence extends Model {
 	@NotNull
 	public String content;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	public Paragraph paragraph;
 
 	public List<Sentence> getContext() {
@@ -41,9 +41,10 @@ public class Sentence extends Model {
 	private static Random random = new Random();
 
 	public static Sentence getRandomSentence() {
-		if (Sentence.find.findRowCount() == 0)
+		int rowCount = Sentence.find.findRowCount(); 
+		if (rowCount == 0)
 			return null;
-		Long id = Math.abs(random.nextLong()) % (Sentence.find.findRowCount())
+		Long id = Math.abs(random.nextLong()) % rowCount
 				+ 1;
 		return Sentence.find.byId(id);
 	}

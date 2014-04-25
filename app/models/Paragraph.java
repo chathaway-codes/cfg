@@ -18,7 +18,7 @@ public class Paragraph extends Model {
 	@Constraints.Min(10)
 	public Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	public Chapter chapter;
 	@OneToMany(mappedBy = "paragraph", cascade = CascadeType.ALL)
 	public Set<Sentence> sentences;
