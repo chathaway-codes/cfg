@@ -26,5 +26,12 @@ GET     /authenticate/:provider     securesocial.controllers.ProviderController.
 POST    /authenticate/:provider     securesocial.controllers.ProviderController.authenticateByPost(provider)
 GET     /not-authorized             securesocial.controllers.ProviderController.notAuthorized
 
+# Entry points for the REST API
+GET     /guesses                    controllers.GuessController.list
+GET     /guesses/:id                controllers.GuessController.get(id: Long)
+POST    /guesses                    controllers.GuessController.post
+PUT     /guesses/:id                controllers.GuessController.put(id: Long)
+DELETE  /guesses/:id                controllers.GuessController.delete(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
