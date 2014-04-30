@@ -7,8 +7,11 @@ import java.util.Random;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import play.db.ebean.*;
 import play.data.validation.*;
+import play.libs.Json;
 
 @Entity
 public class Sentence extends Model {
@@ -26,6 +29,21 @@ public class Sentence extends Model {
 
 	@ManyToOne
 	public Paragraph paragraph;
+	
+	private class JsonClass {
+		private Sentence sentence;
+		JsonClass(Sentence sentence) {
+			this.sentence = sentence;
+		}
+		
+		public Long getId() {
+			return sentence.id;
+		}
+		
+		public String getContent() {
+			return sentence.content;
+		}
+	}
 
 	public List<Sentence> getContext() {
 		return new ArrayList<Sentence>(this.paragraph.sentences);
@@ -33,6 +51,10 @@ public class Sentence extends Model {
 
 	public String toString() {
 		return this.content;
+	}
+	
+	public JsonNode toJson() {
+		return Json.toJson(new JsonClass(this));
 	}
 
 	public static Finder<Long, Sentence> find = new Finder<Long, Sentence>(

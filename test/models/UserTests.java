@@ -46,18 +46,4 @@ public class UserTests extends WithApplication {
 
 		assertThat(n, is(u));
 	}
-
-	@Test
-	public void testUserWalletPersitsAfterLoad() {
-		User u = new User("user@user.com", "user", null, null);
-		u.wallet.monies = 20.0;
-		u.wallet.score = 40.0;
-		u.save();
-
-		// Find the user
-		User d = User.find.byId(u.id);
-
-		assertEquals(d.wallet.monies, u.wallet.monies);
-		assertEquals(d.wallet.score, u.wallet.score);
-	}
 }

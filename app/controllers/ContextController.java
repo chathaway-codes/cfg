@@ -6,8 +6,11 @@ import models.Context;
 import models.Guess;
 import models.Sentence;
 import models.User;
+import models.ContextHasSentences;
+import actions.CorsComposition.Cors;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import play.libs.Json;
 import play.mvc.BodyParser;
@@ -16,6 +19,7 @@ import play.mvc.Result;
 import securesocial.core.Identity;
 import securesocial.core.java.SecureSocial;
 
+@Cors
 public class ContextController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result list() {
@@ -31,16 +35,26 @@ public class ContextController extends Controller {
 	public static Result put(Long id) {
 		return play.mvc.Results.TODO;
 	}
-	@SecureSocial.SecuredAction
+	//@SecureSocial.SecuredAction
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result New() {
-		User user = User.findByIdentity((Identity) ctx().args
-				.get(SecureSocial.USER_KEY));
+		//User user = User.findByIdentity((Identity) ctx().args
+		//		.get(SecureSocial.USER_KEY));
 		Context context = new Context();
 		
-		context.sentences.add(Sentence.getRandomSentence());
+		Sentence sentence = Sentence.getRandomSentence();
 		
-		return ok(Json.toJson(context));
+		List<Sentence> sentences = sentence.getContext();
+		
+		for(Sentence s : sentences) {
+			if(s.equals(sentence)) {
+				context.sentences.add(new ContextHasSentences(context, s, true));
+			} else {
+				context.sentences.add(new ContextHasSentences(context, s, false));
+			}
+		}
+		
+		return ok(context.toJson());
 		
 	}
 }

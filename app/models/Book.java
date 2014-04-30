@@ -5,9 +5,12 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+import play.libs.Json;
 
 @Entity
 public class Book extends Model {
@@ -38,6 +41,29 @@ public class Book extends Model {
 		this.title = title;
 		this.author = author;
 		this.publicationDate = publicationDate;
+	}
+	
+	private class JsonClass {
+		private Book _this;
+		JsonClass(Book _this) {
+			this._this = _this;
+		}
+		
+		public Long getId() {
+			return _this.id;
+		}
+		
+		public String getTitle() {
+			return _this.title;
+		}
+		
+		public String getAuthor() {
+			return _this.author;
+		}
+	}
+	
+	public JsonNode toJson() {
+		return Json.toJson(new JsonClass(this));
 	}
 
 	public static Finder<Long, Book> find = new Finder<Long, Book>(Long.class,

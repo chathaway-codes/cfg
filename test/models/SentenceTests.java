@@ -67,4 +67,11 @@ public class SentenceTests extends WithApplication {
 		assertEquals(a,0);
 		Sentence.getRandomSentence();
 	}
+	
+	@Test
+	public void testToJsonDoesNotKillEverything() {
+		Sentence sentence = Sentence.find.byId(1L);
+		// If this works, test passes
+		sentence.toJson();
+	}
 }
