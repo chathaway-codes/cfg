@@ -8,6 +8,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
 import play.libs.Json;
 
 @Entity
@@ -50,11 +51,19 @@ public class ContextHasSentences extends Model {
 		
 		public Double getCost() {
 			// Cost is equal to 100/monies per word
-			return sentence.content.split(" ").length*100.0;
+			return _this.getCost();
 		}
+	}
+	
+	public Double getCost() {
+		// Cost is equal to 100/monies per word
+		return sentence.content.split(" ").length*100.0;
 	}
 	
 	public JsonNode toJson() {
 		return Json.toJson(new JsonObject(this));
 	}
+
+	public static final Finder<Long, ContextHasSentences> find = new Finder<Long, ContextHasSentences>(
+			Long.class, ContextHasSentences.class);
 }

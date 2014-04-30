@@ -48,5 +48,7 @@ GET		/context/new				controllers.ContextController.New
 
 GET		/user						controllers.UserController.get
 
+PUT		/chs/:id					controllers.ContextHasSentencesController.put(id: Long)
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
