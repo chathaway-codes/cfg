@@ -31,14 +31,6 @@
     paragraph: *paragraph2
     content: Before we reached the guns every officer of my squadron, the second, was either killed or wounded, leaving no one to command us.
 
-- &wallet1 !!models.Wallet
-    score: 50.0
-    monies: 50.0
-
-- &wallet2 !!models.Wallet
-    score: 50.0
-    monies: 50.0
-
 - &user1 !!models.User
     email: user@example.com
     username: User1
@@ -47,7 +39,7 @@
     full_name: User Test
     provider: userpass
     password_hash: $2a$10$R3rWoq1QBZezBxqDICoR.OgbV52RchudoZ3DdhK7m3/kRIsVlvD6y
-    wallet: *wallet1
+    monies: 10000
         
     
 - &user2 !!models.User
@@ -58,10 +50,14 @@
     full_name: User2 Test
     provider: userpass
     password_hash: $2a$10$R3rWoq1QBZezBxqDICoR.OgbV52RchudoZ3DdhK7m3/kRIsVlvD6y
-    wallet: *wallet2
+    monies: 10000
+
+- &chs1 !!models.ContextHasSentences
+    sentence: *sentence1
+    visible: true
 
 - &context1 !!models.Context
-    sentences: [ *sentence1 ]
+    sentences: [ *chs1 ]
 
 - &guess1 !!models.Guess
     context: *context1

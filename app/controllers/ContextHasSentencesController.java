@@ -38,6 +38,6 @@ public class ContextHasSentencesController extends Controller {
 			return forbidden();
 		}
 		
-		return play.mvc.Results.TODO;
+		return ok(chs.toJson());
 	}
 }

@@ -29,6 +29,7 @@ create table context_has_sentences (
   context_id                bigint,
   sentence_id               bigint,
   visible                   boolean,
+  cost                      double,
   constraint pk_context_has_sentences primary key (id))
 ;
 

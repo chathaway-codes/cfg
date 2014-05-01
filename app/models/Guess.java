@@ -1,9 +1,11 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
+import play.libs.Json;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 @Entity
 public class Guess extends Model {
@@ -32,6 +36,37 @@ public class Guess extends Model {
 
 	@javax.persistence.Column(length = 240)
 	public String guess;
+	
+	public Guess() {
+		reviews = new ArrayList<Review>();
+	}
+	
+	private class JsonClass {
+		private Guess _this;
+		JsonClass(Guess _this) {
+			this._this = _this;
+		}
+		
+		public Long getId() {
+			return _this.id;
+		}
+		
+		public JsonNode getContext() {
+			return _this.context.toJson();
+		}
+		
+		public JsonNode getUser() {
+			return _this.user.toJson();
+		}
+		
+		public String getGuess() {
+			return _this.guess;
+		}
+	}
+	
+	public JsonNode toJson() {
+		return Json.toJson(new JsonClass(this));
+	}
 
 	public static final Finder<Long, Guess> find = new Finder<Long, Guess>(
 			Long.class, Guess.class);

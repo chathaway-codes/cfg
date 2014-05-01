@@ -35,24 +35,32 @@ public class ContextController extends Controller {
 	public static Result put(Long id) {
 		return play.mvc.Results.TODO;
 	}
-	//@SecureSocial.SecuredAction
+	@SecureSocial.SecuredAction
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result New() {
-		//User user = User.findByIdentity((Identity) ctx().args
-		//		.get(SecureSocial.USER_KEY));
+		User user = User.findByIdentity((Identity) ctx().args
+				.get(SecureSocial.USER_KEY));
 		Context context = new Context();
+		
+		context.guess = new Guess();
+		context.guess.user = user;
 		
 		Sentence sentence = Sentence.getRandomSentence();
 		
 		List<Sentence> sentences = sentence.getContext();
 		
 		for(Sentence s : sentences) {
+			ContextHasSentences thing;
 			if(s.equals(sentence)) {
-				context.sentences.add(new ContextHasSentences(context, s, true));
+				thing = new ContextHasSentences(context, s, true);
 			} else {
-				context.sentences.add(new ContextHasSentences(context, s, false));
+				thing = new ContextHasSentences(context, s, false);
 			}
+			context.sentences.add(thing);
+			thing.save();
 		}
+		
+		context.save();
 		
 		return ok(context.toJson());
 		

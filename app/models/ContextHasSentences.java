@@ -24,11 +24,13 @@ public class ContextHasSentences extends Model {
 	@OneToOne
 	public Sentence sentence;
 	public Boolean visible = false;
+	public Double cost;
 	
 	public ContextHasSentences(Context context, Sentence sentence, Boolean visible) {
 		this.context = context;
 		this.sentence = sentence;
 		this.visible = visible;
+		this.cost = getCost();
 	}
 	
 	private class JsonObject {
@@ -57,7 +59,9 @@ public class ContextHasSentences extends Model {
 	
 	public Double getCost() {
 		// Cost is equal to 100/monies per word
-		return sentence.content.split(" ").length*100.0;
+		if(this.cost == null)
+			this.cost = sentence.content.split(" ").length*100.0;
+		return this.cost;
 	}
 	
 	public JsonNode toJson() {

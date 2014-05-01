@@ -50,7 +50,7 @@ public class GuessController extends Controller {
 
 		guess.save();
 
-		return ok(Json.toJson(guess));
+		return ok(guess.toJson());
 	}
 
 	@SecureSocial.SecuredAction
