@@ -37,6 +37,7 @@ POST    /guesses                    controllers.GuessController.post
 DELETE  /guesses/:id                controllers.GuessController.delete(id: Long)
 
 GET		/reviews					controllers.ReviewController.list
+GET		/reviews/new				controllers.ReviewController.New
 GET		/reviews/:id				controllers.ReviewController.get(id: Long)
 POST	/reviews					controllers.ReviewController.post
 PUT		/reviews/:id				controllers.ReviewController.put(id: Long)

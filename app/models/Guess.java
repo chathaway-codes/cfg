@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
@@ -66,6 +67,17 @@ public class Guess extends Model {
 	
 	public JsonNode toJson() {
 		return Json.toJson(new JsonClass(this));
+	}
+
+	private static Random random = new Random();
+
+	public static Guess getRandomGuess() {
+		int rowCount = Guess.find.findRowCount(); 
+		if (rowCount == 0)
+			return null;
+		Long id = Math.abs(random.nextLong()) % rowCount
+				+ 1;
+		return Guess.find.byId(id);
 	}
 
 	public static final Finder<Long, Guess> find = new Finder<Long, Guess>(

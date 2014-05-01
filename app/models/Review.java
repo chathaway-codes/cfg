@@ -6,8 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import play.db.ebean.Model;
 import play.db.ebean.Model.Finder;
+import play.libs.Json;
 
 @Entity
 public class Review extends Model {
@@ -26,13 +29,38 @@ public class Review extends Model {
 	public Score score;
 
 	public Review() {
-		this(new User(), new Guess(), new Score());
+		this(new User(), new Guess(), null);
 	}
 
 	public Review(User reviewer, Guess guess, Score score) {
 		this.guess = guess;
 		this.reviewer = reviewer;
 		this.score = score;
+	}
+	
+	private class JsonClass {
+		private Review _this;
+		JsonClass(Review _this) {
+			this._this = _this;
+		}
+		
+		public Long getId() {
+			return _this.id;
+		}
+		
+		public JsonNode getGuess() {
+			if(_this.guess != null)
+				return _this.guess.toJson();
+			return null;
+		}
+		
+		public JsonNode getScore() {
+			return _this.score.toJson();
+		}
+	}
+	
+	public JsonNode toJson() {
+		return Json.toJson(new JsonClass(this));
 	}
 
 	public String toString() {
