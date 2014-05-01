@@ -18,26 +18,26 @@ public class ContextHasSentencesController extends Controller {
 
 		User user = User.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
-		
+
 		ContextHasSentences chs = ContextHasSentences.find.byId(id);
-		
+
 		// Buy the sentence
-		if(chs.visible) {
+		if (chs.visible) {
 			return ok(chs.toJson());
-		} else if(user.monies > chs.getCost()) {
+		} else if (user.monies > chs.getCost()) {
 			// Lock the database to prevent cheating
 			Transaction transaction = Ebean.beginTransaction();
-			
+
 			user.monies -= chs.getCost();
 			chs.visible = true;
-			
+
 			user.save();
 			chs.save();
 			transaction.commit();
 		} else {
 			return forbidden();
 		}
-		
+
 		return ok(chs.toJson());
 	}
 }

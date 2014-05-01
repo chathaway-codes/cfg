@@ -37,34 +37,35 @@ public class Guess extends Model {
 
 	@javax.persistence.Column(length = 240)
 	public String guess;
-	
+
 	public Guess() {
 		reviews = new ArrayList<Review>();
 	}
-	
+
 	private class JsonClass {
 		private Guess _this;
+
 		JsonClass(Guess _this) {
 			this._this = _this;
 		}
-		
+
 		public Long getId() {
 			return _this.id;
 		}
-		
+
 		public JsonNode getContext() {
 			return _this.context.toJson();
 		}
-		
+
 		public JsonNode getUser() {
 			return _this.user.toJson();
 		}
-		
+
 		public String getGuess() {
 			return _this.guess;
 		}
 	}
-	
+
 	public JsonNode toJson() {
 		return Json.toJson(new JsonClass(this));
 	}
@@ -72,11 +73,10 @@ public class Guess extends Model {
 	private static Random random = new Random();
 
 	public static Guess getRandomGuess() {
-		int rowCount = Guess.find.findRowCount(); 
+		int rowCount = Guess.find.findRowCount();
 		if (rowCount == 0)
 			return null;
-		Long id = Math.abs(random.nextLong()) % rowCount
-				+ 1;
+		Long id = Math.abs(random.nextLong()) % rowCount + 1;
 		return Guess.find.byId(id);
 	}
 

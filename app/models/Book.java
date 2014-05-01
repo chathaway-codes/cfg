@@ -42,26 +42,27 @@ public class Book extends Model {
 		this.author = author;
 		this.publicationDate = publicationDate;
 	}
-	
+
 	private class JsonClass {
 		private Book _this;
+
 		JsonClass(Book _this) {
 			this._this = _this;
 		}
-		
+
 		public Long getId() {
 			return _this.id;
 		}
-		
+
 		public String getTitle() {
 			return _this.title;
 		}
-		
+
 		public String getAuthor() {
 			return _this.author;
 		}
 	}
-	
+
 	public JsonNode toJson() {
 		return Json.toJson(new JsonClass(this));
 	}

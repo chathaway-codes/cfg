@@ -37,28 +37,29 @@ public class Review extends Model {
 		this.reviewer = reviewer;
 		this.score = score;
 	}
-	
+
 	private class JsonClass {
 		private Review _this;
+
 		JsonClass(Review _this) {
 			this._this = _this;
 		}
-		
+
 		public Long getId() {
 			return _this.id;
 		}
-		
+
 		public JsonNode getGuess() {
-			if(_this.guess != null)
+			if (_this.guess != null)
 				return _this.guess.toJson();
 			return null;
 		}
-		
+
 		public JsonNode getScore() {
 			return _this.score.toJson();
 		}
 	}
-	
+
 	public JsonNode toJson() {
 		return Json.toJson(new JsonClass(this));
 	}

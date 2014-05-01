@@ -18,8 +18,8 @@ public class UserController extends Controller {
 	public static Result get() {
 		User user = User.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
-		
+
 		return ok(user.toJson());
-		
+
 	}
 }

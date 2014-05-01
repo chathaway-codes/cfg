@@ -35,17 +35,17 @@ public class ReviewController extends Controller {
 		Score score = Json.fromJson(json.get("score"), Score.class);
 		Long guess_id = Json.fromJson(json.get("guess").get("id"), Long.class);
 		Guess guess = Guess.find.byId(guess_id);
-		
+
 		Review review = new Review(user, guess, score);
-		
+
 		review.save();
-		
+
 		// Reward the user monies for playing
 		// Don't need to lock the DB
 		// 20 monies per character?
 		user.monies += review.guess.guess.length() * 20;
 		user.save();
-		
+
 		return ok(review.toJson());
 	}
 
@@ -53,6 +53,7 @@ public class ReviewController extends Controller {
 	public static Result put(Long id) {
 		return play.mvc.Results.TODO;
 	}
+
 	@SecureSocial.SecuredAction
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result New() {
@@ -60,10 +61,10 @@ public class ReviewController extends Controller {
 				.get(SecureSocial.USER_KEY));
 		// Pick a random guess
 		Guess guess = Guess.getRandomGuess();
-		
+
 		Review review = new Review(user, guess, null);
 		review.score = new Score(user, review, guess);
-		
+
 		return ok(review.toJson());
 	}
 }

@@ -15,13 +15,13 @@ public class Application extends Controller {
 	public static Result index() {
 		return ok(index.render("Your new application is ready."));
 	}
-	
+
 	public static Result preflight(String path) {
 
-	    return ok("");
+		return ok("");
 
 	}
-	
+
 	public static Result loadData() {
 		@SuppressWarnings("unchecked")
 		Map<String, List<Object>> all = (Map<String, List<Object>>) Yaml
@@ -37,7 +37,7 @@ public class Application extends Controller {
 
 		// Insert sentences
 		Ebean.save(all.get("sentences"));
-		
+
 		return ok("");
 	}
 

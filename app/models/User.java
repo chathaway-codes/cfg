@@ -50,7 +50,7 @@ public class User extends Model {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public List<Guess> guesses;
-	
+
 	@OneToMany(mappedBy = "reviewer", cascade = CascadeType.ALL)
 	public List<Review> reviews;
 
@@ -115,50 +115,51 @@ public class User extends Model {
 		}
 		return BCrypt.hashpw(password, user.password_salt);
 	}
-	
+
 	private class JsonClass {
 		private User _this;
+
 		JsonClass(User _this) {
 			this._this = _this;
 		}
-		
+
 		public Long getId() {
 			return _this.id;
 		}
-		
+
 		public String getName() {
-			if(_this.full_name != null) {
+			if (_this.full_name != null) {
 				return _this.full_name;
 			}
-			if(_this.email != null) {
+			if (_this.email != null) {
 				return _this.email;
 			}
 			return "Nameless";
 		}
-		
+
 		public Double getScore() {
 			Double total = 0.0;
-			for(Score score : _this.scores) {
+			for (Score score : _this.scores) {
 				total += score.averageScore();
 			}
 			return total;
 		}
-		
+
 		public Double getMonies() {
-			if(_this.monies == null)
+			if (_this.monies == null)
 				return 0.0;
 			return _this.monies;
 		}
-		
+
 		public int getGuessCount() {
 			return _this.guesses.size();
 		}
-		
+
 		public int getReviewCount() {
 			return _this.reviews.size();
 		}
 	}
-	
+
 	public JsonNode toJson() {
 		return Json.toJson(new JsonClass(this));
 	}

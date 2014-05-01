@@ -25,45 +25,47 @@ public class ContextHasSentences extends Model {
 	public Sentence sentence;
 	public Boolean visible = false;
 	public Double cost;
-	
-	public ContextHasSentences(Context context, Sentence sentence, Boolean visible) {
+
+	public ContextHasSentences(Context context, Sentence sentence,
+			Boolean visible) {
 		this.context = context;
 		this.sentence = sentence;
 		this.visible = visible;
 		this.cost = getCost();
 	}
-	
+
 	private class JsonObject {
 		private ContextHasSentences _this;
+
 		JsonObject(ContextHasSentences _this) {
 			this._this = _this;
 		}
-		
+
 		public Long getId() {
 			return _this.id;
 		}
-		
+
 		public JsonNode getSentence() {
 			return _this.sentence.toJson();
 		}
-		
+
 		public Boolean getVisible() {
 			return _this.visible;
 		}
-		
+
 		public Double getCost() {
 			// Cost is equal to 100/monies per word
 			return _this.getCost();
 		}
 	}
-	
+
 	public Double getCost() {
 		// Cost is equal to 100/monies per word
-		if(this.cost == null)
-			this.cost = sentence.content.split(" ").length*100.0;
+		if (this.cost == null)
+			this.cost = sentence.content.split(" ").length * 100.0;
 		return this.cost;
 	}
-	
+
 	public JsonNode toJson() {
 		return Json.toJson(new JsonObject(this));
 	}

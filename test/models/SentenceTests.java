@@ -12,16 +12,16 @@ import play.test.*;
 import static play.test.Helpers.*;
 
 public class SentenceTests extends WithApplication {
-	
+
 	FakeApplication app;
-	
+
 	@Before
 	public void setUp() {
 		app = fakeApplication(inMemoryDatabase());
 		start(app);
 		InitialData.BasicData1();
 	}
-	
+
 	@After
 	public void tearDown() {
 		stop(app);
@@ -51,23 +51,23 @@ public class SentenceTests extends WithApplication {
 		// And we shouldn't have ALL the sentences
 		assertThat(sentences.size(), is(not(Sentence.find.findRowCount())));
 	}
-	
+
 	@Test
 	public void testCanDeleteSentence() {
 		int initialCount = Sentence.find.findRowCount();
 		Sentence.find.byId(1L).delete();
-		
-		assertEquals(initialCount-1, Sentence.find.findRowCount());
+
+		assertEquals(initialCount - 1, Sentence.find.findRowCount());
 	}
-	
+
 	@Test
-	public void testDoesNotThrowDivisionByZero(){
+	public void testDoesNotThrowDivisionByZero() {
 		Ebean.delete(Sentence.find.findList());
 		int a = Sentence.find.findRowCount();
-		assertEquals(a,0);
+		assertEquals(a, 0);
 		Sentence.getRandomSentence();
 	}
-	
+
 	@Test
 	public void testToJsonDoesNotKillEverything() {
 		Sentence sentence = Sentence.find.byId(1L);

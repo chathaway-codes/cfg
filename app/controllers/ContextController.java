@@ -35,23 +35,24 @@ public class ContextController extends Controller {
 	public static Result put(Long id) {
 		return play.mvc.Results.TODO;
 	}
+
 	@SecureSocial.SecuredAction
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result New() {
 		User user = User.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
 		Context context = new Context();
-		
+
 		context.guess = new Guess();
 		context.guess.user = user;
-		
+
 		Sentence sentence = Sentence.getRandomSentence();
-		
+
 		List<Sentence> sentences = sentence.getContext();
-		
-		for(Sentence s : sentences) {
+
+		for (Sentence s : sentences) {
 			ContextHasSentences thing;
-			if(s.equals(sentence)) {
+			if (s.equals(sentence)) {
 				thing = new ContextHasSentences(context, s, true);
 			} else {
 				thing = new ContextHasSentences(context, s, false);
@@ -59,10 +60,10 @@ public class ContextController extends Controller {
 			context.sentences.add(thing);
 			thing.save();
 		}
-		
+
 		context.save();
-		
+
 		return ok(context.toJson());
-		
+
 	}
 }

@@ -29,17 +29,18 @@ public class Sentence extends Model {
 
 	@ManyToOne
 	public Paragraph paragraph;
-	
+
 	private class JsonClass {
 		private Sentence sentence;
+
 		JsonClass(Sentence sentence) {
 			this.sentence = sentence;
 		}
-		
+
 		public Long getId() {
 			return sentence.id;
 		}
-		
+
 		public String getContent() {
 			return sentence.content;
 		}
@@ -52,7 +53,7 @@ public class Sentence extends Model {
 	public String toString() {
 		return this.content;
 	}
-	
+
 	public JsonNode toJson() {
 		return Json.toJson(new JsonClass(this));
 	}
@@ -63,11 +64,10 @@ public class Sentence extends Model {
 	private static Random random = new Random();
 
 	public static Sentence getRandomSentence() {
-		int rowCount = Sentence.find.findRowCount(); 
+		int rowCount = Sentence.find.findRowCount();
 		if (rowCount == 0)
 			return null;
-		Long id = Math.abs(random.nextLong()) % rowCount
-				+ 1;
+		Long id = Math.abs(random.nextLong()) % rowCount + 1;
 		return Sentence.find.byId(id);
 	}
 
