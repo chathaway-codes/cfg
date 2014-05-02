@@ -46,7 +46,7 @@ public class User extends Model {
 
 	public String password_salt;
 
-	public Double monies;
+	public double monies;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public List<Guess> guesses;
@@ -137,17 +137,15 @@ public class User extends Model {
 			return "Nameless";
 		}
 
-		public Double getScore() {
-			Double total = 0.0;
+		public double getScore() {
+			double total = 0.0;
 			for (Score score : _this.scores) {
 				total += score.averageScore();
 			}
 			return total;
 		}
 
-		public Double getMonies() {
-			if (_this.monies == null)
-				return 0.0;
+		public double getMonies() {
 			return _this.monies;
 		}
 

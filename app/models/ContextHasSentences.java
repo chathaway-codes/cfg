@@ -24,7 +24,7 @@ public class ContextHasSentences extends Model {
 	@OneToOne
 	public Sentence sentence;
 	public Boolean visible = false;
-	public Double cost;
+	public double cost;
 
 	public ContextHasSentences(Context context, Sentence sentence,
 			Boolean visible) {
@@ -53,16 +53,15 @@ public class ContextHasSentences extends Model {
 			return _this.visible;
 		}
 
-		public Double getCost() {
+		public double getCost() {
 			// Cost is equal to 100/monies per word
 			return _this.getCost();
 		}
 	}
 
-	public Double getCost() {
+	public double getCost() {
 		// Cost is equal to 100/monies per word
-		if (this.cost == null)
-			this.cost = sentence.content.split(" ").length * 100.0;
+		this.cost = sentence.content.split(" ").length * 100.0;
 		return this.cost;
 	}
 
