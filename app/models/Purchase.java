@@ -35,11 +35,11 @@ public class Purchase extends Model {
 	@Required
 	public DateTime when;
 
-	public Purchase(User user, Sentence sentence, Guess guess, Double amount) {
+	public Purchase(User user, Sentence sentence, Guess guess, Float amount) {
 		this(user, sentence, guess, amount, DateTime.now());
 	}
 
-	public Purchase(User user, Sentence sentence, Guess guess, Double amount,
+	public Purchase(User user, Sentence sentence, Guess guess, Float amount,
 			DateTime when) {
 		this.user = user;
 		this.sentence = sentence;

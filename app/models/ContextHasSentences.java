@@ -53,16 +53,16 @@ public class ContextHasSentences extends Model {
 			return _this.visible;
 		}
 
-		public Double getCost() {
+		public Float getCost() {
 			// Cost is equal to 100/monies per word
 			return _this.getCost();
 		}
 	}
 
-	public Double getCost() {
+	public Float getCost() {
 		// Cost is equal to 100/monies per word
 		if (this.cost == null)
-			this.cost = sentence.content.split(" ").length * 100.0;
+			this.cost = sentence.content.split(" ").length * 100.0f;
 		return this.cost;
 	}
 
