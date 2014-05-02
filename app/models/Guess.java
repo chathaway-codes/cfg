@@ -30,7 +30,7 @@ public class Guess extends Model {
 	@OneToOne
 	public Context context;
 	@ManyToOne
-	public User user;
+	public UserZ user;
 
 	@OneToMany(mappedBy = "guess", cascade = CascadeType.ALL)
 	public List<Review> reviews;

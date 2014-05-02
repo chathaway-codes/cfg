@@ -17,7 +17,7 @@ import java.util.*;
 import org.joda.time.DateTime;
 
 import models.LocalToken;
-import models.User;
+import models.UserZ;
 
 public class UserService extends BaseUserService {
 
@@ -27,9 +27,9 @@ public class UserService extends BaseUserService {
 
 	@Override
 	public Identity doSave(Identity user) {
-		User found = User.findByIdentity(user);
+		UserZ found = UserZ.findByIdentity(user);
 		if (found == null) {
-			User localUser = new User(user);
+			UserZ localUser = new UserZ(user);
 			localUser.save();
 		} else {
 			// Already saved
@@ -54,7 +54,7 @@ public class UserService extends BaseUserService {
 			Logger.debug("find...");
 			Logger.debug(String.format("id = %s", identityId.userId()));
 		}
-		User localUser = User.find.where()
+		UserZ localUser = UserZ.find.where()
 				.eq("username", (identityId.userId())).findUnique();
 		if (localUser == null)
 			return null;
@@ -99,11 +99,11 @@ public class UserService extends BaseUserService {
 			Logger.debug(String.format("email = %s", email));
 			Logger.debug(String.format("providerId = %s", providerId));
 		}
-		List<User> list = User.find.where().eq("email", email)
+		List<UserZ> list = UserZ.find.where().eq("email", email)
 				.eq("provider", providerId).findList();
 		if (list.size() != 1)
 			return null;
-		User localUser = list.get(0);
+		UserZ localUser = list.get(0);
 		SocialUser socialUser = new SocialUser(new IdentityId(
 				localUser.username, localUser.provider), null, null, null,
 				Option.apply(localUser.email), null, new AuthenticationMethod(

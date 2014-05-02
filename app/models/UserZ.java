@@ -21,7 +21,7 @@ import scala.Some;
 import securesocial.core.Identity;
 
 @Entity
-public class User extends Model {
+public class UserZ extends Model {
 
 	/**
 	 * 
@@ -62,13 +62,13 @@ public class User extends Model {
 	@OneToMany
 	public List<Purchase> purchases;
 
-	public User() {
+	public UserZ() {
 		this.email = "user@example.com";
 		this.username = "user";
 		this.provider = "userpass";
 	}
 
-	public User(String email, String username, String provider, String password) {
+	public UserZ(String email, String username, String provider, String password) {
 		this.email = email;
 		this.username = username;
 		this.provider = provider;
@@ -77,7 +77,7 @@ public class User extends Model {
 		_User();
 	}
 
-	public User(Identity i) {
+	public UserZ(Identity i) {
 		this.username = i.identityId().userId();
 		this.provider = i.identityId().providerId();
 		this.first_name = i.firstName();
@@ -102,16 +102,16 @@ public class User extends Model {
 		this.purchases = new ArrayList<Purchase>();
 	}
 
-	public static User findByIdentity(Identity i) {
+	public static UserZ findByIdentity(Identity i) {
 		System.out.println(i.identityId());
-		User user = User.find.where()
+		UserZ user = UserZ.find.where()
 				.eq("provider", i.identityId().providerId())
 				.eq("username", i.identityId().userId()).findUnique();
 
 		return user;
 	}
 
-	public static String hashPassword(User user, String password) {
+	public static String hashPassword(UserZ user, String password) {
 		if (user.password_salt == null) {
 			user.password_salt = BCrypt.gensalt();
 		}
@@ -119,9 +119,9 @@ public class User extends Model {
 	}
 
 	private class JsonClass {
-		private User _this;
+		private UserZ _this;
 
-		JsonClass(User _this) {
+		JsonClass(UserZ _this) {
 			this._this = _this;
 		}
 
@@ -166,7 +166,7 @@ public class User extends Model {
 		return Json.toJson(new JsonClass(this));
 	}
 
-	public static final Finder<Long, User> find = new Finder<Long, User>(
-			Long.class, User.class);
+	public static final Finder<Long, UserZ> find = new Finder<Long, UserZ>(
+			Long.class, UserZ.class);
 
 }

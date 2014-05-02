@@ -3,7 +3,7 @@ package controllers;
 import java.util.List;
 
 import models.Guess;
-import models.User;
+import models.UserZ;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -44,7 +44,7 @@ public class GuessController extends Controller {
 		Guess guess = Json.fromJson(json, Guess.class);
 
 		// The owner should be logged in user
-		User user = User.findByIdentity((Identity) ctx().args
+		UserZ user = UserZ.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
 		guess.user = user;
 
@@ -67,7 +67,7 @@ public class GuessController extends Controller {
 			return notFound();
 		}
 
-		User user = User.findByIdentity((Identity) ctx().args
+		UserZ user = UserZ.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
 		if (!original.user.equals(user)) {
 			return forbidden();
@@ -88,7 +88,7 @@ public class GuessController extends Controller {
 		}
 
 		// We should only update instance where the previous owner was this user
-		User user = User.findByIdentity((Identity) ctx().args
+		UserZ user = UserZ.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
 		if (!guess.user.equals(user)) {
 			return forbidden();

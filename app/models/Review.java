@@ -24,15 +24,15 @@ public class Review extends Model {
 	@ManyToOne(cascade = CascadeType.ALL)
 	public Guess guess;
 	@ManyToOne(cascade = CascadeType.ALL)
-	public User reviewer;
+	public UserZ reviewer;
 	@OneToOne
 	public Score score;
 
 	public Review() {
-		this(new User(), new Guess(), null);
+		this(new UserZ(), new Guess(), null);
 	}
 
-	public Review(User reviewer, Guess guess, Score score) {
+	public Review(UserZ reviewer, Guess guess, Score score) {
 		this.guess = guess;
 		this.reviewer = reviewer;
 		this.score = score;

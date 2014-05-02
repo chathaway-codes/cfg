@@ -4,7 +4,7 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Transaction;
 
 import models.ContextHasSentences;
-import models.User;
+import models.UserZ;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -16,7 +16,7 @@ public class ContextHasSentencesController extends Controller {
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result put(Long id) {
 
-		User user = User.findByIdentity((Identity) ctx().args
+		UserZ user = UserZ.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
 
 		ContextHasSentences chs = ContextHasSentences.find.byId(id);

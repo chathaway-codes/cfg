@@ -4,7 +4,7 @@ import static play.test.Helpers.fakeApplication;
 import static play.test.Helpers.inMemoryDatabase;
 import models.ContextHasSentences;
 import models.InitialData;
-import models.User;
+import models.UserZ;
 
 import org.junit.Before;
 import org.junit.Test;

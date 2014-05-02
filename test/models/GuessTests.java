@@ -29,7 +29,7 @@ public class GuessTests extends WithApplication {
 
 	@Test
 	public void testCanGetUserGuesses() {
-		User user = User.find.byId(1L);
+		UserZ user = UserZ.find.byId(1L);
 
 		assertNotNull(user.guesses);
 		assertNotNull(user.guesses.get(0));
@@ -38,7 +38,7 @@ public class GuessTests extends WithApplication {
 	@Test
 	public void testCanMakeGuess() {
 		int originalCount = Guess.find.findRowCount();
-		User user = User.find.byId(1L);
+		UserZ user = UserZ.find.byId(1L);
 
 		user.guesses.add(new Guess());
 		user.save();
@@ -49,7 +49,7 @@ public class GuessTests extends WithApplication {
 	@Test
 	public void testCanMakeReview() {
 		int originalCount = Review.find.findRowCount();
-		User user = User.find.byId(2L);
+		UserZ user = UserZ.find.byId(2L);
 
 		Guess guess = Guess.find.byId(1L);
 

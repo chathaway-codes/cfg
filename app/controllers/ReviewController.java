@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import models.Guess;
 import models.Review;
 import models.Score;
-import models.User;
+import models.UserZ;
 import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Controller;
@@ -29,7 +29,7 @@ public class ReviewController extends Controller {
 	@SecureSocial.SecuredAction
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result post() {
-		User user = User.findByIdentity((Identity) ctx().args
+		UserZ user = UserZ.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
 		JsonNode json = request().body().asJson();
 		Score score = Json.fromJson(json.get("score"), Score.class);
@@ -57,7 +57,7 @@ public class ReviewController extends Controller {
 	@SecureSocial.SecuredAction
 	@BodyParser.Of(BodyParser.Json.class)
 	public static Result New() {
-		User user = User.findByIdentity((Identity) ctx().args
+		UserZ user = UserZ.findByIdentity((Identity) ctx().args
 				.get(SecureSocial.USER_KEY));
 		// Pick a random guess
 		Guess guess = Guess.getRandomGuess();

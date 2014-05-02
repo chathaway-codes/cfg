@@ -26,7 +26,7 @@ public class Score extends Model {
 	public Long id;
 
 	@ManyToOne
-	public User user;
+	public UserZ user;
 	@OneToOne
 	public Review review;
 	@ManyToOne
@@ -42,11 +42,11 @@ public class Score extends Model {
 	@Column(columnDefinition = "NUMERIC")
 	public Float accuracyScore;
 
-	public Score(User user, Review review, Guess guess) {
+	public Score(UserZ user, Review review, Guess guess) {
 		this(user, review, guess, 0.0f, 0.0f, 0.0f);
 	}
 
-	public Score(User user, Review review, Guess guess, Float grammarScore,
+	public Score(UserZ user, Review review, Guess guess, Float grammarScore,
 			Float funScore, Float accuracyScore) {
 		this.user = user;
 		this.review = review;
