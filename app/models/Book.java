@@ -20,6 +20,7 @@ public class Book extends Model {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Constraints.Min(10)
 	public Long id;
 
