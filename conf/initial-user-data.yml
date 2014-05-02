@@ -31,7 +31,7 @@
     paragraph: *paragraph2
     content: Before we reached the guns every officer of my squadron, the second, was either killed or wounded, leaving no one to command us.
 
-- &user1 !!models.User
+- &user1 !!models.UserZ
     email: user@example.com
     username: User1
     first_name: User
@@ -42,7 +42,7 @@
     monies: 10000
         
     
-- &user2 !!models.User
+- &user2 !!models.UserZ
     email: user2@example.com
     username: User2
     first_name: User2
