@@ -32,18 +32,18 @@ public class Score extends Model {
 	public Guess guess;
 
 	@Required
-	public double grammarScore;
+	public Float grammarScore;
 	@Required
-	public double funScore;
+	public Float funScore;
 	@Required
-	public double accuracyScore;
+	public Float accuracyScore;
 
 	public Score(User user, Review review, Guess guess) {
-		this(user, review, guess, 0.0, 0.0, 0.0);
+		this(user, review, guess, 0.0f, 0.0f, 0.0f);
 	}
 
-	public Score(User user, Review review, Guess guess, double grammarScore,
-			double funScore, double accuracyScore) {
+	public Score(User user, Review review, Guess guess, Float grammarScore,
+			Float funScore, Float accuracyScore) {
 		this.user = user;
 		this.review = review;
 		this.guess = guess;
@@ -63,15 +63,15 @@ public class Score extends Model {
 			return _this.id;
 		}
 
-		public double getGrammarScore() {
+		public Float getGrammarScore() {
 			return _this.grammarScore;
 		}
 
-		public double getFunScore() {
+		public Float getFunScore() {
 			return _this.funScore;
 		}
 
-		public double getAccuracyScore() {
+		public Float getAccuracyScore() {
 			return _this.accuracyScore;
 		}
 	}
@@ -80,7 +80,7 @@ public class Score extends Model {
 		return Json.toJson(new JsonClass(this));
 	}
 
-	public double averageScore() {
+	public Float averageScore() {
 		return (this.grammarScore + this.funScore + this.accuracyScore) / 3;
 	}
 
