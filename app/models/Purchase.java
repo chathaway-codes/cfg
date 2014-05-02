@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -30,6 +31,7 @@ public class Purchase extends Model {
 	public Guess guess;
 
 	@Required
+	@Column(columnDefinition = "NUMERIC")
 	public Float amount;
 
 	@Required

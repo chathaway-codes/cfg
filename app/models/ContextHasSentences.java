@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -24,6 +25,7 @@ public class ContextHasSentences extends Model {
 	@OneToOne
 	public Sentence sentence;
 	public Boolean visible = false;
+	@Column(columnDefinition = "NUMERIC")
 	public Float cost;
 
 	public ContextHasSentences(Context context, Sentence sentence,

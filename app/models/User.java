@@ -7,6 +7,7 @@ import play.db.ebean.Model;
 import play.libs.Json;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -46,6 +47,7 @@ public class User extends Model {
 
 	public String password_salt;
 
+	@Column(columnDefinition = "NUMERIC")
 	public Float monies;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

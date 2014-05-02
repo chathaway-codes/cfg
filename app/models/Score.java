@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.Column;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,10 +33,13 @@ public class Score extends Model {
 	public Guess guess;
 
 	@Required
+	@Column(columnDefinition = "NUMERIC")
 	public Float grammarScore;
 	@Required
+	@Column(columnDefinition = "NUMERIC")
 	public Float funScore;
 	@Required
+	@Column(columnDefinition = "NUMERIC")
 	public Float accuracyScore;
 
 	public Score(User user, Review review, Guess guess) {
