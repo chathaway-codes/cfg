@@ -46,7 +46,7 @@ public class User extends Model {
 
 	public String password_salt;
 
-	public Double monies;
+	public Float monies;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	public List<Guess> guesses;
@@ -81,7 +81,7 @@ public class User extends Model {
 		this.first_name = i.firstName();
 		this.last_name = i.lastName();
 		this.full_name = i.fullName();
-		this.monies = 0.0;
+		this.monies = 0.0f;
 		if (i.email() instanceof Some) {
 			this.email = i.email().get();
 		}
@@ -137,17 +137,17 @@ public class User extends Model {
 			return "Nameless";
 		}
 
-		public Double getScore() {
-			Double total = 0.0;
+		public Float getScore() {
+			Float total = 0.0f;
 			for (Score score : _this.scores) {
 				total += score.averageScore();
 			}
 			return total;
 		}
 
-		public Double getMonies() {
+		public Float getMonies() {
 			if (_this.monies == null)
-				return 0.0;
+				return 0.0f;
 			return _this.monies;
 		}
 

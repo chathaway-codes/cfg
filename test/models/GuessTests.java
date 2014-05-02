@@ -54,7 +54,7 @@ public class GuessTests extends WithApplication {
 		Guess guess = Guess.find.byId(1L);
 
 		Review review = new Review(user, guess, new Score(user, null, guess,
-				10.0, 10.0, 10.0));
+				10.0f, 10.0f, 10.0f));
 		review.save();
 
 		assertEquals(Review.find.findRowCount(), originalCount + 1);
