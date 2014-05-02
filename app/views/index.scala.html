@@ -1,7 +1,39 @@
-@(message: String)
-
-@main("Welcome to Play") {
-
-    @play20.welcome(message, style = "Java")
-
+@main("Contequest") {
+  <div class="container">
+    <div class="jumbotron">
+      <h1>ConteQuest - Literacy through Context Free Guessing</h1>
+      <p>Help us help you! By playing this game, you are practicing your
+        reading comprehension skills, and helping us develop better 
+        natural language processing algorithns (which would help make Siri look foolish)</p>
+      <p><a class="btn btn-primary btn-lg" href="/login">Sign up now!</a></p>
+    </div><!-- /.jumbotron -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="/assets/images/literacy.jpg" class="img-thumbnail">
+        </div>
+        <div class="col-md-8">
+          <h2>Literacy</h2>
+          <p>Reading comprehension is one of the most valuable skills to develop at a young age.</p>
+          <p>ConteQuest helps to encourage youths to read by making it a game, and a fun one at that.</p>
+        </div>
+      </div><!-- /.row -->
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Natural Language Processing</h2>
+        </div>
+        <div class="col-md-4">
+            <img src="/assets/images/nlp.png" class="img-thumbnail">
+        </div>
+      </div><!-- /.row -->
+      <div class="row">
+        <div class="col-md-4">
+            <img src="/assets/images/hci.png" class="img-thumbnail">
+        </div>
+        <div class="col-md-8">
+            <h2>Human-Computer Interaction</h2>
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+  </div>
 }
