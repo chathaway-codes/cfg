@@ -60,7 +60,7 @@ create table purchase (
   id                        bigint not null,
   user_id                   bigint,
   amount                    NUMERIC,
-  when                      timestamp,
+  "when"                      timestamp,
   constraint pk_purchase primary key (id))
 ;
 
@@ -90,7 +90,7 @@ create table sentence (
   constraint pk_sentence primary key (id))
 ;
 
-create table user (
+create table "user" (
   id                        bigint not null,
   email                     varchar(255),
   username                  varchar(255),
@@ -146,19 +146,19 @@ alter table context_has_sentences add constraint fk_context_has_sentences_sente_
 create index ix_context_has_sentences_sente_5 on context_has_sentences (sentence_id);
 alter table guess add constraint fk_guess_context_6 foreign key (context_id) references context (id) on delete restrict on update restrict;
 create index ix_guess_context_6 on guess (context_id);
-alter table guess add constraint fk_guess_user_7 foreign key (user_id) references user (id) on delete restrict on update restrict;
+alter table guess add constraint fk_guess_user_7 foreign key (user_id) references "user" (id) on delete restrict on update restrict;
 create index ix_guess_user_7 on guess (user_id);
 alter table paragraph add constraint fk_paragraph_chapter_8 foreign key (chapter_id) references chapter (id) on delete restrict on update restrict;
 create index ix_paragraph_chapter_8 on paragraph (chapter_id);
-alter table purchase add constraint fk_purchase_user_9 foreign key (user_id) references user (id) on delete restrict on update restrict;
+alter table purchase add constraint fk_purchase_user_9 foreign key (user_id) references "user" (id) on delete restrict on update restrict;
 create index ix_purchase_user_9 on purchase (user_id);
 alter table review add constraint fk_review_guess_10 foreign key (guess_id) references guess (id) on delete restrict on update restrict;
 create index ix_review_guess_10 on review (guess_id);
-alter table review add constraint fk_review_reviewer_11 foreign key (reviewer_id) references user (id) on delete restrict on update restrict;
+alter table review add constraint fk_review_reviewer_11 foreign key (reviewer_id) references "user" (id) on delete restrict on update restrict;
 create index ix_review_reviewer_11 on review (reviewer_id);
 alter table review add constraint fk_review_score_12 foreign key (score_id) references score (id) on delete restrict on update restrict;
 create index ix_review_score_12 on review (score_id);
-alter table score add constraint fk_score_user_13 foreign key (user_id) references user (id) on delete restrict on update restrict;
+alter table score add constraint fk_score_user_13 foreign key (user_id) references "user" (id) on delete restrict on update restrict;
 create index ix_score_user_13 on score (user_id);
 alter table score add constraint fk_score_review_14 foreign key (review_id) references review (id) on delete restrict on update restrict;
 create index ix_score_review_14 on score (review_id);
