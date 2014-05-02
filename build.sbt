@@ -10,7 +10,7 @@ libraryDependencies ++= Seq(
 )
 
 
-libraryDependencies += "postgresql" % "postgresql" % "9.3-101-1.jdbc4"
+libraryDependencies += "org.postgresql" % "postgresql" % "9.3-1101-jdbc4"
 
 resolvers += Resolver.sonatypeRepo("releases")
 
