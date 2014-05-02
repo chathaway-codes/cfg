@@ -60,7 +60,7 @@ create table purchase (
   id                        bigint not null,
   user_id                   bigint,
   amount                    NUMERIC,
-  when                      timestamp,
+  `when`                      timestamp,
   constraint pk_purchase primary key (id))
 ;
 
