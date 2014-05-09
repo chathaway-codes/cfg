@@ -42,6 +42,12 @@ public class ReviewController extends Controller {
         score.review = review;
 
 		review.save();
+
+        // Apply scales
+        score.grammarScore *= 2;
+        score.funScore *= 1;
+        score.accuracyScore *= 3;
+
         score.save();
 
 		// Reward the user monies for playing
