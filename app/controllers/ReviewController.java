@@ -37,8 +37,12 @@ public class ReviewController extends Controller {
 		Guess guess = Guess.find.byId(guess_id);
 
 		Review review = new Review(user, guess, score);
+        score.guess = guess;
+        score.user = user;
+        score.review = review;
 
 		review.save();
+        score.save();
 
 		// Reward the user monies for playing
 		// Don't need to lock the DB

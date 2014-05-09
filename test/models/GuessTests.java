@@ -24,7 +24,7 @@ public class GuessTests extends WithApplication {
 		assertNotNull(review);
 		assertNotNull(review.score);
 		assertNotNull(review.score.grammarScore);
-		assertEquals(new Double(7.0), review.score.grammarScore);
+		assertEquals(new Float(7.0), review.score.grammarScore);
 	}
 
 	@Test
